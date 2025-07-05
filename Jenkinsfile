@@ -15,7 +15,7 @@ pipeline {
         stage('Run tests') {
             steps {
                 sh '''
-                    docker run -it \
+                    docker run --rm \
                     -v "$(pwd)":/orderservicetest \
                     -v "$(pwd)/target":/orderservicetest/target \
                     4e698472485b
