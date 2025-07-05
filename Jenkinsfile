@@ -39,15 +39,18 @@ pipeline {
 
           stage('Build Tests') {
             steps {
-                sh '''
+                 script {
+                    // Groovy comment here is fine
                     def branch = env.BRANCH_NAME ?: sh(returnStdout: true, script: 'git rev-parse --abbrev-ref HEAD').trim()
                     def sha = sh(returnStdout: true, script: 'git rev-parse --short HEAD').trim()
 
-                    def tag = "${branch}-${sha}"
+                    def dockerTag = "${branch}:${sha}"
 
-                    echo "Building Docker image with tag: ${tag}"
-                    docker build . -t order-service-integration-tets:${tag}"
-                '''
+                    echo "Building Docker image with tag: ${dockerTag}"
+
+                    // Build docker image command
+                    sh "docker build . -t order-service-integration-tests:${dockerTag}"
+                }
             }
         }
     }
