@@ -37,7 +37,7 @@ pipeline {
             }
         }
 
-          stage('Run tests') {
+          stage('Build Tests') {
             steps {
                 sh '''
                     // Get current branch and short commit SHA
